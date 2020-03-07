@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: "",
     loadChildren: () =>
-      import("./invoice/invoice.module").then(i => i.InvoiceModule)
+      import("./dashboard/dashboard.module").then(i => i.DashboardModule)
   }
 ];
 

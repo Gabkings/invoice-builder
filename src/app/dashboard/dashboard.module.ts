@@ -1,8 +1,8 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
-import { InvoiceRoutingModule } from "./invoice-routing.module";
-import { InvoiceComponent } from "./invoice.component";
+import { InvoiceRoutingModule } from "./dashboard-routing.module";
+import { DashboardComponent } from "./dashboard.component";
 import { MainComponent } from "../main/main.component";
 import { SideNavComponent } from "../side-nav/side-nav.component";
 import { ToolBarComponent } from "../tool-bar/tool-bar.component";
@@ -11,10 +11,12 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatListModule } from "@angular/material/list";
 import { MatIconModule } from "@angular/material/icon";
 import { MatCardModule } from "@angular/material/card";
+import { InvoicesModule } from "../invoices/invoices.module";
+import { ClientsModule } from "../clients/clients.module";
 
 @NgModule({
   declarations: [
-    InvoiceComponent,
+    DashboardComponent,
     MainComponent,
     SideNavComponent,
     ToolBarComponent
@@ -26,7 +28,9 @@ import { MatCardModule } from "@angular/material/card";
     CommonModule,
     InvoiceRoutingModule,
     MatToolbarModule,
-    MatCardModule
+    MatCardModule,
+    InvoicesModule,
+    ClientsModule
   ],
   exports: [
     MatSidenavModule,
@@ -36,4 +40,4 @@ import { MatCardModule } from "@angular/material/card";
     MatCardModule
   ]
 })
-export class InvoiceModule {}
+export class DashboardModule {}

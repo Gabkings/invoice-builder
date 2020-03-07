@@ -1,5 +1,4 @@
-import { Component, OnInit , NgZone} from "@angular/core";
-
+import { Component, OnInit, NgZone } from "@angular/core";
 
 const MAX_WIDTH_BREAKPOINT = 600;
 
@@ -13,13 +12,23 @@ export class SideNavComponent implements OnInit {
     `(max-width : ${MAX_WIDTH_BREAKPOINT}px)`
   );
 
+  links = [
+    { name: "Invoices", url: "invoices" },
+    { name: "Clients", url: "clients" }
+  ];
+
   constructor(zone: NgZone) {
-    zone.run(() => this.mediaMatcher = matchMedia(`(max-width: ${MAX_WIDTH_BREAKPOINT}px)`))
+    zone.run(
+      () =>
+        (this.mediaMatcher = matchMedia(
+          `(max-width: ${MAX_WIDTH_BREAKPOINT}px)`
+        ))
+    );
   }
 
   ngOnInit(): void {}
 
-  isScreenSmall(){
+  isScreenSmall() {
     return this.mediaMatcher.matches;
-   }
+  }
 }
