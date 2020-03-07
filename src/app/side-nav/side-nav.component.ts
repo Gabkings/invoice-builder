@@ -1,6 +1,7 @@
-import { Component, OnInit, NgZone } from "@angular/core";
+import { Component, OnInit , NgZone} from "@angular/core";
 
-const MAX_WIDTH_BREAKPOINT = 720;
+
+const MAX_WIDTH_BREAKPOINT = 600;
 
 @Component({
   selector: "app-side-nav",
@@ -12,11 +13,13 @@ export class SideNavComponent implements OnInit {
     `(max-width : ${MAX_WIDTH_BREAKPOINT}px)`
   );
 
-  constructor(private zone: NgZone) {
-    this.mediaMatcher.addEventListener(mql => {
-      zone.run(() => (this.mediaMatcher = mql));
-    });
+  constructor(zone: NgZone) {
+    zone.run(() => this.mediaMatcher = matchMedia(`(max-width: ${MAX_WIDTH_BREAKPOINT}px)`))
   }
 
   ngOnInit(): void {}
+
+  isScreenSmall(){
+    return this.mediaMatcher.matches;
+   }
 }

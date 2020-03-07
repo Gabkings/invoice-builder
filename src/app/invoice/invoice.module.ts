@@ -10,7 +10,7 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatListModule } from "@angular/material/list";
 import { MatIconModule } from "@angular/material/icon";
-
+import { MatCardModule } from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -25,8 +25,15 @@ import { MatIconModule } from "@angular/material/icon";
     MatListModule,
     CommonModule,
     InvoiceRoutingModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatCardModule
   ],
-  exports: [MatSidenavModule, MatIconModule, MatToolbarModule, MatListModule]
+  exports: [
+    MatSidenavModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatListModule,
+    MatCardModule
+  ]
 })
 export class InvoiceModule {}
