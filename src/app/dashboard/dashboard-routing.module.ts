@@ -4,15 +4,19 @@ import { DashboardComponent } from "./dashboard.component";
 import { MainComponent } from "../main/main.component";
 import { InvoiceListingComponent } from "../invoices/components/invoice-listing/invoice-listing.component";
 import { ClientListingComponent } from "../clients/components/client-listing/client-listing.component";
+import { InvoiceFormComponent } from "../invoices/components/invoice-form/invoice-form.component";
 
 const routes: Routes = [
   {
     path: "",
     component: DashboardComponent,
     children: [
-      { path: "", component: MainComponent },
-     // { path: "invoices", component: InvoiceListingComponent },
-      { path: "clients", component: ClientListingComponent }
+      //{ path: "", component: MainComponent },
+      { path: "invoices", component: InvoiceListingComponent },
+      { path: "invoices/new", component: InvoiceFormComponent },
+      { path: "invoices/:id", component: InvoiceFormComponent },
+      //{ path: "clients", component: ClientListingComponent }
+      { path: "**", redirectTo: "invoices" }
     ]
   }
 ];

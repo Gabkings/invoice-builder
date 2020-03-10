@@ -1,0 +1,38 @@
+<mat-card>
+  <h3 style="text-align: center;">Create new Invoice</h3>
+  <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
+    <div class="form-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Item</mat-label>
+        <input matInput formControlName="item" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Due</mat-label>
+        <input matInput type="date" formControlName="due" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Qty</mat-label>
+        <input matInput type="number" formControlName="qty" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Tax</mat-label>
+        <input matInput type="number" formControlName="tax" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Rate</mat-label>
+        <input matInput type="number" formControlName="rate" />
+      </mat-form-field>
+    </div>
+    <div style="display: flex;flex-direction: row;flex-grow: inherit;">
+      <button
+        type="submit"
+        mat-raised-button
+        style="background-color:#cc6c11; margin-right: 50px;"
+        [disabled]="!invoiceForm.valid"
+      >
+        Submit
+      </button>
+      <button type="reset" mat-raised-button>Cancel</button>
+    </div>
+  </form>
+</mat-card>
