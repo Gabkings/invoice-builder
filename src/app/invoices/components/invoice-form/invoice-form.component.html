@@ -1,5 +1,5 @@
 <mat-card>
-  <h3 style="text-align: center;">Create new Invoice</h3>
+  <h3 style="text-align: center;">{{ message }}</h3>
   <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
     <div class="form-container">
       <mat-form-field appearance="fill">

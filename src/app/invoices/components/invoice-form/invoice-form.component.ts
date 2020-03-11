@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormControl } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { InvoiceService } from "../../services/invoice.service";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { Validators } from "@angular/forms";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
+import { Invoice } from "../../models/invoice";
 
 @Component({
   selector: "app-invoice-form",
@@ -11,38 +11,79 @@ import { Router } from "@angular/router";
   styleUrls: ["./invoice-form.component.scss"]
 })
 export class InvoiceFormComponent implements OnInit {
+  private invoice: Invoice;
+  invoiceForm: FormGroup;
+
+  message = !this.invoice ? "Create invoice" : "Update invoice";
   constructor(
-    private svs: InvoiceService,
+    private fb: FormBuilder,
+    private invoiceService: InvoiceService,
     public snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {
-    this.invoiceForm;
+  ngOnInit() {
+    this.createForm();
+    this.setInvoiceToForm();
   }
-
-  invoiceForm = new FormGroup({
-    item: new FormControl("", [Validators.required]),
-    qty: new FormControl("", [Validators.required]),
-    tax: new FormControl("", [Validators.required]),
-    rate: new FormControl("", [Validators.required]),
-    due: new FormControl("", [Validators.required])
-  });
-
   onSubmit() {
-    this.svs.createInvoice(this.invoiceForm.value).subscribe(
-      data => {
-        this.snackBar.open("Invoice created!", "Success", {
-          duration: 2000
-        });
-        this.invoiceForm.reset();
-        this.router.navigate(["", "invoices"]);
-      },
-      err => {
-        console.log(err);
+    //user wants to edit the invoice
+    if (this.invoice) {
+      this.invoiceService
+        .updateInvoice(this.invoice._id, this.invoiceForm.value)
+        .subscribe(
+          data => {
+            this.snackBar.open("Invoice updated", "Success", {
+              duration: 2000
+            });
+            this.router.navigate(["dashboard", "invoices"]);
+          },
+          err => this.errorHandler(err, "Failed to update invoice")
+        );
+    } else {
+      this.invoiceService.createInvoice(this.invoiceForm.value).subscribe(
+        data => {
+          this.snackBar.open("Invoice created!", "Success", {
+            duration: 2000
+          });
+          this.invoiceForm.reset();
+          this.router.navigate(["dashboard", "invoices"]);
+        },
+        err => this.errorHandler(err, "Failed to create Invoice")
+      );
+    }
+  }
+  private setInvoiceToForm() {
+    //get the id of the invoice
+    this.route.params.subscribe(params => {
+      let id = params["id"];
+      if (!id) {
+        return;
       }
-    );
-
-    console.warn(this.invoiceForm.value);
+      this.invoiceService.getInvoice(id).subscribe(
+        invoice => {
+          this.invoice = invoice;
+          this.invoiceForm.patchValue(this.invoice);
+        },
+        err => this.errorHandler(err, "Failed to get Invoice")
+      );
+    });
+  }
+  private createForm() {
+    this.invoiceForm = this.fb.group({
+      item: ["", Validators.required],
+      date: ["", Validators.required],
+      due: ["", Validators.required],
+      qty: ["", Validators.required],
+      rate: "",
+      tax: ""
+    });
+  }
+  private errorHandler(error, message) {
+    console.error(error);
+    this.snackBar.open(message, "Error", {
+      duration: 2000
+    });
   }
 }
