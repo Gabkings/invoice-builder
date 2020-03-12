@@ -7,3 +7,11 @@ export class Invoice {
   date: Date;
   due: Date;
 }
+
+export class InvoicePagination {
+  docs: Invoice[];
+  page: number;
+  pages: number;
+  limit: number;
+  total: number;
+}
