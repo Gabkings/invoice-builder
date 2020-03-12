@@ -43,7 +43,7 @@ export class InvoiceListingComponent
 
   ngOnInit(): void {}
 
-  saveInvoiceBtn() {
+  saveBtnHanlder() {
     return this.router.navigate(["", "invoices", "new"]);
   }
 
@@ -51,7 +51,7 @@ export class InvoiceListingComponent
     this.router.navigate(["", "invoices", id]);
   }
 
-  deleteInvoice(id) {
+  deleteBtnHandler(id) {
     console.log(id);
     return this.invoiceService.deleteInvoice(id).subscribe(
       data => {
