@@ -15,7 +15,7 @@ const routes: Routes = [
       { path: "invoices", component: InvoiceListingComponent },
       { path: "invoices/new", component: InvoiceFormComponent },
       { path: "invoices/:id", component: InvoiceFormComponent },
-      //{ path: "clients", component: ClientListingComponent }
+      { path: "clients", component: ClientListingComponent },
       { path: "**", redirectTo: "invoices" }
     ]
   }

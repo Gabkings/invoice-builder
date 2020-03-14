@@ -2,16 +2,15 @@
   position: absolute;
   right: 60px;
   color: rgb(255, 255, 255);
-  background-color: #ff4040;
+  background-color: #ff4081;
 }
 .table-container {
   display: flex;
   flex-direction: column;
   max-height: 500px;
-  min-width: 100vw;
+  min-width: 300px;
   position: relative;
 }
-
 .loading-shade {
   position: absolute;
   top: 0;
